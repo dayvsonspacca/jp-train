@@ -9,6 +9,7 @@ use Filament\Actions\Imports\Models\Import;
 
 class TranslationImporter extends Importer
 {
+    // TODO: make this import directly in WordImporter
     protected static ?string $model = Translation::class;
 
     public static function getColumns(): array

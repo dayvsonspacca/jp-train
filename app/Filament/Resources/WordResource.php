@@ -3,15 +3,14 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\WordResource\Pages;
-use App\Filament\Resources\WordResource\RelationManagers;
+use App\Models\Translation;
 use App\Models\Word;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Actions\CreateAction;
 
 class WordResource extends Resource
 {
@@ -25,11 +24,6 @@ class WordResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('japanese')->required()->label('Japanese word'),
                 Forms\Components\TextInput::make('pronounciation')->required(),
-                Forms\Components\Repeater::make('translations')->schema([
-                    Forms\Components\TextInput::make('translation')->required(),
-                ])
-                ->required()
-                ->columnSpan('full')
             ]);
     }
 
@@ -40,15 +34,31 @@ class WordResource extends Resource
                 Tables\Columns\TextColumn::make('japanese')->searchable(),
                 Tables\Columns\TextColumn::make('pronounciation')->searchable(),
                 Tables\Columns\TextColumn::make('translations.value')
-                ->wrap()
-                ->badge()
-                ->searchable(),
+                    ->wrap()
+                    ->badge()
+                    ->searchable(),
             ])
             ->filters([
                 //
             ])
+            ->headerActions([
+                Tables\Actions\CreateAction::make(),
+            ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\Action::make('Add translation')
+                        ->icon('heroicon-o-plus-circle')
+                        ->form([
+                            Forms\Components\TextInput::make('value')->label('Translation')->required()
+                        ])
+                        ->action(function (Word $word, $data) {
+                            Translation::create([
+                                'value' => $data['value'],
+                                'word_id' => $word->id,
+                            ]);
+                        })
+                ])
             ])
             ->bulkActions([]);
     }
