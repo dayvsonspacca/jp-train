@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Word extends Model
+class Translation extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -13,12 +13,12 @@ class Word extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'japanese',
-        'pronounciation',
+        'value',
+        'word_id',
     ];
 
-    public function translations(): HasMany
+    public function word(): BelongsTo
     {
-        return $this->hasMany(Translation::class);
+        return $this->belongsTo(Word::class);
     }
 }

@@ -14,8 +14,7 @@ class WordExporter extends Exporter
     public static function getColumns(): array
     {
         return [
-            ExportColumn::make('id')
-                ->label('ID'),
+            ExportColumn::make('id')->label('word_id'),
             ExportColumn::make('japanese'),
             ExportColumn::make('pronounciation'),
             ExportColumn::make('created_at'),
