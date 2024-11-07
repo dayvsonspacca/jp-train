@@ -3,10 +3,12 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\WordResource\Pages;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use App\Models\Translation;
 use Filament\Tables\Table;
 use Filament\Forms\Form;
+use Filament\Infolists;
 use App\Models\Word;
 use Filament\Forms;
 use Filament\Tables;
@@ -45,6 +47,7 @@ class WordResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
+                    Tables\Actions\ViewAction::make(),
                     Tables\Actions\EditAction::make(),
                     Tables\Actions\Action::make('Add translation')
                         ->icon('heroicon-o-plus-circle')
@@ -66,6 +69,23 @@ class WordResource extends Resource
             ]);
     }
 
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([
+                Infolists\Components\Section::make()
+                ->schema([
+                    Infolists\Components\Grid::make(2)
+                    ->schema([
+                        Infolists\Components\TextEntry::make('japanese'),
+                        Infolists\Components\TextEntry::make('pronounciation'),
+                        Infolists\Components\TextEntry::make('translations.value')->badge()->columnSpanFull(),
+                    ])
+
+                ])
+            ]);
+    }
+    
     public static function getRelations(): array
     {
         return [
@@ -78,7 +98,9 @@ class WordResource extends Resource
         return [
             'index' => Pages\ListWords::route('/'),
             'create' => Pages\CreateWord::route('/create'),
-            'edit' => Pages\EditWord::route('/{record}/edit'),
+            'practice' => Pages\Practice::route('/practice'),
+            'view' => Pages\ViewWord::route('/{record}'),
+            'edit' => Pages\EditWord::route(path: '/{record}/edit'),
         ];
     }
 }
