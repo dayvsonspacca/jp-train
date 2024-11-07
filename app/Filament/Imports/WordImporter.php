@@ -25,7 +25,8 @@ class WordImporter extends Importer
             ImportColumn::make('translations')
                 ->array(',')
                 ->requiredMapping()
-                ->rules(['required']),
+                ->rules(['required'])
+                ->guess(['translation']),
         ];
     }
 
