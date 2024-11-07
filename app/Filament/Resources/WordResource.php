@@ -3,14 +3,13 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\WordResource\Pages;
+use Filament\Resources\Resource;
 use App\Models\Translation;
+use Filament\Tables\Table;
+use Filament\Forms\Form;
 use App\Models\Word;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Table;
-use Filament\Actions\CreateAction;
 
 class WordResource extends Resource
 {
@@ -60,7 +59,11 @@ class WordResource extends Resource
                         })
                 ])
             ])
-            ->bulkActions([]);
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
+            ]);
     }
 
     public static function getRelations(): array
