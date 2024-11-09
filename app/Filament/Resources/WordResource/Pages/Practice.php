@@ -39,6 +39,8 @@ class Practice extends Page
             ->danger()
             ->send();
         }
+        
+        $this->randomizeWords();
     }
 
     public function randomizeWords()
