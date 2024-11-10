@@ -18,6 +18,7 @@ class WordResource extends Resource
     protected static ?string $model = Word::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-language';
+    protected static ?string $navigationGroup = 'Dictionary';
 
     public static function form(Form $form): Form
     {
@@ -28,6 +29,11 @@ class WordResource extends Resource
             ]);
     }
 
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
+    
     public static function table(Table $table): Table
     {
         return $table
@@ -98,7 +104,6 @@ class WordResource extends Resource
         return [
             'index' => Pages\ListWords::route('/'),
             'create' => Pages\CreateWord::route('/create'),
-            'practice' => Pages\Practice::route('/practice'),
             'view' => Pages\ViewWord::route('/{record}'),
             'edit' => Pages\EditWord::route(path: '/{record}/edit'),
         ];

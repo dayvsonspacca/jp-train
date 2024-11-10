@@ -16,6 +16,7 @@ class SymbolResource extends Resource
     protected static ?string $model = Symbol::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-currency-yen';
+    protected static ?string $navigationGroup = 'Dictionary';
 
     public static function form(Form $form): Form
     {
@@ -26,7 +27,12 @@ class SymbolResource extends Resource
                 Forms\Components\Select::make('type')->options(['kanji' => 'Kanji', 'hiragana' => 'Hiragana', 'katakana' => 'Katakana'])->required()->columnSpanFull(),
             ]);
     }
-
+    
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
+    
     public static function table(Table $table): Table
     {
         return $table
