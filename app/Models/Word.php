@@ -14,7 +14,8 @@ class Word extends Model
      */
     protected $fillable = [
         'japanese',
-        'pronounciation',
+        'pronunciation',
+        'tpye',
     ];
 
     public function translations(): HasMany

@@ -14,9 +14,13 @@ return new class extends Migration
         Schema::create('words', function (Blueprint $table) {
             $table->id();
             $table->string('japanese');
-            $table->string('pronounciation');
+            $table->string('pronunciation');
             $table->timestamps();
+            
+            $table->index('japanese');
+            $table->index('pronunciation');
         });
+
     }
 
     /**

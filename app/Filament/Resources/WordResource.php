@@ -24,7 +24,7 @@ class WordResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('japanese')->required()->label('Japanese word'),
-                Forms\Components\TextInput::make('pronounciation')->required(),
+                Forms\Components\TextInput::make('pronunciation')->required(),
             ]);
     }
 
@@ -33,7 +33,7 @@ class WordResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('japanese')->searchable(),
-                Tables\Columns\TextColumn::make('pronounciation')->searchable(),
+                Tables\Columns\TextColumn::make('pronunciation')->searchable(),
                 Tables\Columns\TextColumn::make('translations.value')
                     ->wrap()
                     ->badge()
@@ -78,7 +78,7 @@ class WordResource extends Resource
                     Infolists\Components\Grid::make(2)
                     ->schema([
                         Infolists\Components\TextEntry::make('japanese'),
-                        Infolists\Components\TextEntry::make('pronounciation'),
+                        Infolists\Components\TextEntry::make('pronunciation'),
                         Infolists\Components\TextEntry::make('translations.value')->badge()->columnSpanFull(),
                     ])
 

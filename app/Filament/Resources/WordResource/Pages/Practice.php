@@ -25,7 +25,7 @@ class Practice extends Page
 
     public function validateAnswer(string $answer)
     {
-        if ($answer === $this->correct_word->pronounciation)
+        if ($answer === $this->correct_word->pronunciation)
         {
             Notification::make()
                 ->title('You answer is correctly')

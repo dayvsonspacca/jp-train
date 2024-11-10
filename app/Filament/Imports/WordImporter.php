@@ -19,7 +19,7 @@ class WordImporter extends Importer
             ImportColumn::make('japanese')
                 ->requiredMapping()
                 ->rules(['required']),
-            ImportColumn::make('pronounciation')
+            ImportColumn::make('pronunciation')
                 ->requiredMapping()
                 ->rules(['required']),
             ImportColumn::make('translations')

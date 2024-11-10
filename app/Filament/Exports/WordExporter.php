@@ -16,7 +16,7 @@ class WordExporter extends Exporter
         return [
             ExportColumn::make('id')->label('word_id'),
             ExportColumn::make('japanese'),
-            ExportColumn::make('pronounciation'),
+            ExportColumn::make('pronunciation'),
             ExportColumn::make('created_at'),
             ExportColumn::make('updated_at'),
         ];
